@@ -97,6 +97,9 @@ find . -name "*.zip" -delete
 
 **Caution:** this permanently deletes every `.zip` file under the current directory, so run it only from `data/TLC-Calib` after checking the extraction results.
 
+<details>
+<summary>Dataset format details</summary>
+
 Each scene contains synchronized camera images, LiDAR poses, camera intrinsics, LiDAR-camera extrinsics, per-frame point clouds, and scene-level LiDAR maps.
 
 The dataset root follows this structure:
@@ -119,6 +122,8 @@ All modalities use the same zero-based local frame index. For example, `images/i
 
 Important files in `params/` include `intrinsics.txt`, `lidars.txt`, `cams_to_lidar_gt.txt`, `cams_to_lidar_init.txt`, optional `timestamps.txt`, and camera-indexed files such as `cam0.txt` and `cam0_to_lidar.txt`. Supported dataset names include `kitti-360`, `waymo`, and `fast-livo2`; custom data can use the same layout. For more details, please refer to the `README.md` included in the [dataset link](https://drive.google.com/drive/folders/1P9EcXuyUL9NZpgj-IU44-UfJUDiEZ7zg?usp=drive_link).
 
+</details>
+
 ## Calibration
 
 Run the default TLC-Calib optimization with:
@@ -138,7 +143,8 @@ python train.py -s data/TLC-Calib/KITTI-360/large_rotation \
   --dataset kitti-360
 ```
 
-Useful options:
+<details>
+<summary>Useful training options</summary>
 
 - `--from_lidar`: initialize camera poses from LiDAR poses. If disabled, camera poses are initialized from the ground-truth LiDAR-camera extrinsics.
 - `--use_rig`: optimize one shared rig transform per camera.
@@ -148,6 +154,8 @@ Useful options:
 - `--refine`: run an additional NVS refinement stage after calibration.
 - `--viewer --port 8080`: launch the web viewer to monitor the calibration process in real time.
 - `--viewer_camera_step`: show every N-th camera frame in the viewer to keep visualization lightweight for long sequences.
+
+</details>
 
 ## Evaluation
 
@@ -163,19 +171,28 @@ This writes pose calibration results to:
 <output_path>/rig_results.json
 ```
 
+<br>
 Evaluate NVS quality using the calibrated LiDAR-camera poses:
 
 ```bash
 python metrics_nvs.py -m <output_path>
 ```
 
-`metrics_nvs.py` reads `<output_path>/config.yml` to recover the source scene, then runs `nvs_eval/train.py` with `<output_path>/point_cloud/iteration_30000/cams_to_lidar.txt` as the prior pose. The NVS run and summary are saved inside the calibration output:
+This writes the NVS evaluation output to:
 
 ```text
 <output_path>/nvs_eval/ours_30000/
 <output_path>/nvs_results.json
 ```
 
+<details>
+<summary>NVS evaluation details</summary>
+
+`metrics_nvs.py` reads `<output_path>/config.yml` to recover the source scene, then runs `nvs_eval/train.py` with `<output_path>/point_cloud/iteration_30000/cams_to_lidar.txt` as the prior pose.
+
+</details>
+
+<br>
 Run full evaluation over a dataset root:
 
 ```bash
@@ -190,7 +207,10 @@ If `--data_path` is omitted, update `DEFAULT_DATA_PATH` in `full_eval.py` to the
 
 For each scene/run, `full_eval.py` runs calibration training, pose metrics, NVS metrics, and scene-level aggregation. Extra training options are forwarded to `train.py`.
 
-Aggregate existing outputs without retraining. The `-a` path can be any output level:
+<details>
+<summary>Aggregate existing outputs without retraining</summary>
+
+The `-a` path can be any output level:
 
 ```bash
 python full_eval.py -a <scene_output_path>    # e.g., outputs/kitti-360/straight/
@@ -203,6 +223,8 @@ python full_eval.py -a <output_root>          # e.g., outputs/
 - `<output_root>` aggregates every dataset output directory under the root, then writes one `full_eval_results.json` inside each dataset output directory.
 
 For each scene output, aggregation averages pose, NVS, and training results across run directories such as `eval_01` or `eval_02`.
+
+</details>
 
 ## Rendering (Optional)
 
