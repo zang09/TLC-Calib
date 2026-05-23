@@ -75,7 +75,29 @@ The provided environment has been tested with PyTorch 2.1.2 and CUDA 11.8. The C
 
 ## Data Preparation
 
-We provide processed versions of public datasets, including Waymo, KITTI-360, and FAST-LIVO2, converted into the TLC-Calib format. Each scene contains synchronized camera images, LiDAR poses, camera intrinsics, LiDAR-camera extrinsics, per-frame point clouds, and scene-level LiDAR maps.
+We provide processed versions of public datasets, including Waymo, KITTI-360, and FAST-LIVO2, converted into the TLC-Calib format. Download the processed TLC-Calib dataset before running training or evaluation:
+
+```bash
+pip install gdown
+gdown --folder https://drive.google.com/drive/folders/1P9EcXuyUL9NZpgj-IU44-UfJUDiEZ7zg -O data/TLC-Calib
+```
+
+Then unzip all downloaded archives:
+
+```bash
+cd data/TLC-Calib
+find . -name "*.zip" -execdir unzip -n "{}" \;
+```
+
+The `-n` option keeps existing extracted files and avoids overwriting them. After confirming that all archives were extracted correctly, you can remove the downloaded zip files:
+
+```bash
+find . -name "*.zip" -delete
+```
+
+**Caution:** this permanently deletes every `.zip` file under the current directory, so run it only from `data/TLC-Calib` after checking the extraction results.
+
+Each scene contains synchronized camera images, LiDAR poses, camera intrinsics, LiDAR-camera extrinsics, per-frame point clouds, and scene-level LiDAR maps.
 
 The dataset root follows this structure:
 
@@ -110,7 +132,7 @@ python train.py -s <dataset_scene_folder> -m <output_path> \
 Example:
 
 ```bash
-python train.py -s data/TLC-Calib/kitti-360/large_rotation \
+python train.py -s data/TLC-Calib/KITTI-360/large_rotation \
   -m outputs/kitti-360/large_rotation/eval \
   --eval --from_lidar --use_rig --opt_pose --pose_scheduler --adaptive_voxel \
   --dataset kitti-360
