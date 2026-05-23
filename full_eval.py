@@ -18,7 +18,8 @@ import subprocess
 from pathlib import Path
 
 
-DEFAULT_DATA_PATH = "/home/haebeom/data/TLC-Calib-Test"
+# Path to the downloaded processed TLC-Calib dataset.
+DEFAULT_DATA_PATH = "/path/to/TLC-Calib"
 DEFAULT_TRAIN_ARGS = [
     "--eval",
     "--from_lidar",

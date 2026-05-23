@@ -164,6 +164,8 @@ python full_eval.py \
   --repeat 1
 ```
 
+If `--data_path` is omitted, update `DEFAULT_DATA_PATH` in `full_eval.py` to the location where you downloaded the processed TLC-Calib dataset.
+
 For each scene/run, `full_eval.py` runs calibration training, pose metrics, NVS metrics, and scene-level aggregation. Extra training options are forwarded to `train.py`.
 
 Aggregate existing outputs without retraining. The `-a` path can be any output level:
