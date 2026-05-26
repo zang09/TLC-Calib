@@ -54,7 +54,7 @@ TLC-Calib is a targetless LiDAR-camera calibration framework based on Neural Gau
 Clone the repository with submodules:
 
 ```bash
-git clone https://github.com/zang09/TLC-Calib.git --recursive
+git clone https://github.com/SNU-VGILab/TLC-Calib.git --recursive
 cd TLC-Calib
 ```
 
