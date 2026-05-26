@@ -75,7 +75,9 @@ The provided environment has been tested with PyTorch 2.1.2 and CUDA 11.8. The C
 
 ## Data Preparation
 
-We provide processed versions of public datasets, including Waymo, KITTI-360, and FAST-LIVO2, converted into the TLC-Calib format. Download the processed TLC-Calib dataset before running training or evaluation:
+We provide processed versions of public datasets such as KITTI-360 and FAST-LIVO2 in the TLC-Calib format. Waymo-derived processed data is not redistributed; please follow [Waymo notice](https://drive.google.com/file/d/1CfiYyHqnxyCuOyadUg85QyW_Cf8BMsTk/view?usp=sharing) and use the [TLC-Calib preprocessing repository](https://github.com/zang09/TLC-Calib_preprocessing) to process Waymo locally.
+
+Download the processed TLC-Calib dataset before running training or evaluation:
 
 ```bash
 pip install gdown
