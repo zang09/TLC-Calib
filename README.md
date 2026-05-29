@@ -34,8 +34,8 @@
 </p>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=HxDTiVllGe0" target="_blank">
-    <img src="https://img.youtube.com/vi/HxDTiVllGe0/maxresdefault.jpg" alt="TLC-Calib demo video" width="90%">
+  <a href="https://www.youtube.com/watch?v=59XFAQDzVV0" target="_blank">
+    <img src="https://img.youtube.com/vi/59XFAQDzVV0/maxresdefault.jpg" alt="TLC-Calib demo video" width="90%">
   </a>
 </p>
 
